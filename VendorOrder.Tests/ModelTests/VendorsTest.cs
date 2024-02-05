@@ -36,7 +36,6 @@ namespace VendorOrder.Tests
         [TestMethod]
         public void Create_NewVendor_AssignsVendorId()
         {
-            // Arrange
             VendorsController controller = new VendorsController();
             Vendor newVendor = new Vendor
             {
@@ -44,10 +43,8 @@ namespace VendorOrder.Tests
                 Description = "Test Description"
             };
 
-            // Act
             controller.Create(newVendor);
 
-            // Assert
             Assert.IsNotNull(newVendor.VendorId);
             Assert.IsTrue(newVendor.VendorId > 0);
         }
