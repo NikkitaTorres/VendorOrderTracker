@@ -1,0 +1,20 @@
+@model VendorOrder.Models.Vendor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Vendor Details";
+}
+
+<h2>@Model.Name</h2>
+<p>@Model.Description</p>
+
+<h3>Orders</h3>
+<ul>
+    @foreach (var order in Model.Orders)
+    {
+        <li>@order.Title - @order.Description - @order.Price - @order.Date</li>
+    }
+</ul>
+
+<a asp-controller="Vendors" asp-action="CreateOrder" asp-route-vendorId="@Model.VendorId">Create New Order</a>

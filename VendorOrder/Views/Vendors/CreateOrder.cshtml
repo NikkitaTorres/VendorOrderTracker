@@ -1,0 +1,25 @@
+@model VendorOrder.Models.Order
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Create Order";
+}
+
+<h2>Create Order for Vendor</h2>
+
+<form asp-controller="Vendors" asp-action="CreateOrder" asp-route-vendorId="@ViewData["VendorId"]" method="post">
+    <label for="Title">Title:</label>
+    <input type="text" id="Title" name="Title" required>
+
+    <label for="Description">Description:</label>
+    <input type="text" id="Description" name="Description" required>
+
+    <label for="Price">Price:</label>
+    <input type="number" id="Price" name="Price" required>
+
+    <label for="Date">Date:</label>
+    <input type="datetime-local" id="Date" name="Date" required>
+
+    <button type="submit">Create Order</button>
+</form>
