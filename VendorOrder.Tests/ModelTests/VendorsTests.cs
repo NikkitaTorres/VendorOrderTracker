@@ -16,7 +16,7 @@ namespace VendorOrder.Tests
 
         var vendor = new Vendor { Name = vendorName, Description = vendorDescription };
 
-        Assert.AreEqaul(vendorName, vendor.Name);
+        Assert.AreEqual(vendorName, vendor.Name);
         Assert.AreEqual(vendorDescription, vendor.Description);
         CollectionAssert.IsEmpty(vendor.Orders);
       }
