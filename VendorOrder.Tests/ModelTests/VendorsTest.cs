@@ -5,32 +5,32 @@ using System;
 
 namespace VendorOrder.Tests
 {
-  [TestClass]
-    public class VendorTests
+    [TestClass]
+    public class VendorsTests
     {
-      [TestMethod]
-      public void VendorInitialization()
-      {
-        string vendorName = "Suzie's Cafe";
-        string vendorDescription = "A cozy cafe with delicious treats.";
+        [TestMethod]
+        public void VendorInitialization()
+        {
+            string vendorName = "Suzie's Cafe";
+            string vendorDescription = "A cozy cafe with delicious treats.";
 
-        var vendor = new Vendor { Name = vendorName, Description = vendorDescription };
+            var vendor = new Vendor { Name = vendorName, Description = vendorDescription };
 
-        Assert.AreEqual(vendorName, vendor.Name);
-        Assert.AreEqual(vendorDescription, vendor.Description);
-        CollectionAssert.IsEmpty(vendor.Orders);
-      }
+            Assert.AreEqual(vendorName, vendor.Name);
+            Assert.AreEqual(vendorDescription, vendor.Description);
+            CollectionAssert.AreEqual(new List<Order>(), vendor.Orders);
+        }
 
-      [TestMethod]
-      public void vendorAddOrder()
-      {
-        var vendor = new Vendor();
-        var order = new Order();
+        [TestMethod]
+        public void VendorAddOrder()
+        {
+            var vendor = new Vendor();
+            var order = new Order();
 
-        vendor.Orders.Add(order);
+            vendor.Orders.Add(order);
 
-        CollectionAssert.IsNotEmpty(vendor.Orders);
-        CollectionAssert.Contains(vendor.Orders, order);
-      }
+            Assert.AreEqual(1, vendor.Orders.Count);
+            CollectionAssert.Contains(vendor.Orders, order);
+        }
     }
 }
