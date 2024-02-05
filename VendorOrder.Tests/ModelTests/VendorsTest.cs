@@ -27,7 +27,7 @@ namespace VendorOrder.Tests
         var vendor = new Vendor();
         var order = new Order();
 
-        venodr.Orders.Add(order);
+        vendor.Orders.Add(order);
 
         CollectionAssert.IsNotEmpty(vendor.Orders);
         CollectionAssert.Contains(vendor.Orders, order);
