@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ProjectName
+namespace VendorOrder
 {
   class Program
   {
@@ -13,9 +13,9 @@ namespace ProjectName
 
       WebApplication app = builder.Build();
 
-      // app.UseDeveloperExceptionPage();
+      
       app.UseHttpsRedirection();
-
+      app.UseStaticFiles();
       app.UseRouting();
 
       app.MapControllerRoute(
