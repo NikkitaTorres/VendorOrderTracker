@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VendorOrder.Models;
 using System.Collections.Generic;
 using System;
+using VendorOrder.Controllers;
 
 namespace VendorOrder.Tests
 {
@@ -31,6 +32,24 @@ namespace VendorOrder.Tests
 
             Assert.AreEqual(1, vendor.Orders.Count);
             CollectionAssert.Contains(vendor.Orders, order);
+        }
+        [TestMethod]
+        public void Create_NewVendor_AssignsVendorId()
+        {
+            // Arrange
+            VendorsController controller = new VendorsController();
+            Vendor newVendor = new Vendor
+            {
+                Name = "Test Vendor",
+                Description = "Test Description"
+            };
+
+            // Act
+            controller.Create(newVendor);
+
+            // Assert
+            Assert.IsNotNull(newVendor.VendorId);
+            Assert.IsTrue(newVendor.VendorId > 0);
         }
     }
 }
