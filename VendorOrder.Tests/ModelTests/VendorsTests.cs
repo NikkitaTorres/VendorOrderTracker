@@ -20,5 +20,17 @@ namespace VendorOrder.Tests
         Assert.AreEqual(vendorDescription, vendor.Description);
         CollectionAssert.IsEmpty(vendor.Orders);
       }
+
+      [TestMethod]
+      public void vendorAddOrder()
+      {
+        var vendor = new Vendor();
+        var order = new Order();
+
+        venodr.Orders.Add(order);
+
+        CollectionAssert.IsNotEmpty(vendor.Orders);
+        CollectionAssert.Contains(vendor.Orders, order);
+      }
     }
 }
