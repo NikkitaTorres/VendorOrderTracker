@@ -48,5 +48,26 @@ namespace VendorOrder.Tests
             Assert.IsNotNull(newVendor.VendorId);
             Assert.IsTrue(newVendor.VendorId > 0);
         }
+
+        [TestMethod]
+        public void CreateVendor_AddsNewVendorToList()
+        {
+            var vendor = new Vendor { Name = "Test Vendor", Description = "Test Description" };
+
+            Vendor.CreateVendor(vendor);
+
+            CollectionAssert.Contains(Vendor.Vendors, vendor);
+        }
+
+        [TestMethod]
+        public void AddOrder_AddsOrderToVendor()
+        {
+            var vendor = new Vendor { VendorId = 1, Name = "Vendor 1", Description = "Description 1" };
+            var order = new Order { Title = "Test Order", Description = "Test Description", Price = 10 };
+
+            vendor.AddOrder(order);
+
+            CollectionAssert.Contains(vendor.Orders, order);
+        }
     }
 }

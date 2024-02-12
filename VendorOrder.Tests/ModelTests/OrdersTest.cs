@@ -29,5 +29,17 @@ namespace VendorOrder.Tests
       Assert.AreEqual(orderPrice, order.Price);
       Assert.AreEqual(orderDate, order.Date);
     }
+
+    [TestMethod]
+        public void CreateOrderForVendor_AddsNewOrderToVendor()
+        {
+            var vendor = new Vendor { Name = "Test Vendor", Description = "Test Description" };
+            Vendor.CreateVendor(vendor);
+            var order = new Order { Title = "Test Order", Description = "Test Description", Price = 10 };
+
+            Order.CreateOrderForVendor(vendor.VendorId, order);
+            
+            CollectionAssert.Contains(vendor.Orders, order);
+        }
   }
 }
