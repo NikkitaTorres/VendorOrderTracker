@@ -1,16 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using VendorOrder.Models;
-using System.Collections.Generic;
+using System;
 
 namespace VendorOrder.Controllers
 {
     public class VendorsController : Controller
     {
-        private static List<Vendor> vendors = new List<Vendor>();
-
         public IActionResult Index()
         {
-            return View(vendors);
+            return View(Vendor.Vendors);
         }
 
         [HttpGet]
@@ -22,14 +20,13 @@ namespace VendorOrder.Controllers
         [HttpPost]
         public IActionResult Create(Vendor vendor)
         {
-            vendor.VendorId = vendors.Count + 1;
-            vendors.Add(vendor);
+            Vendor.CreateVendor(vendor);
             return RedirectToAction("Index");
         }
 
         public IActionResult Details(int id)
         {
-            var vendor = vendors.Find(v => v.VendorId == id);
+            var vendor = Vendor.GetVendorById(id);
             if (vendor == null)
             {
                 return NotFound();
@@ -40,7 +37,7 @@ namespace VendorOrder.Controllers
         [HttpGet]
         public IActionResult CreateOrder(int vendorId)
         {
-            var vendor = vendors.Find(v => v.VendorId == vendorId);
+            var vendor = Vendor.GetVendorById(vendorId);
             if (vendor == null)
             {
                 return NotFound();
@@ -51,16 +48,16 @@ namespace VendorOrder.Controllers
         [HttpPost]
         public IActionResult CreateOrder(int vendorId, Order order)
         {
-            var vendor = vendors.Find(v => v.VendorId == vendorId);
-            if (vendor == null)
+            try
             {
-                return NotFound();
+                Order.CreateOrderForVendor(vendorId, order);
+                return RedirectToAction("Details", new { id = vendorId });
             }
-
-            order.OrderId = vendor.Orders.Count + 1;
-            vendor.Orders.Add(order);
-
-            return RedirectToAction("Details", new { id = vendorId });
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View();
+            }
         }
     }
 }
